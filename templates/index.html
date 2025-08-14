@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}Semantic Book Recommender{% endblock %}
+
+{% block content %}
+<div class="row">
+
+  <!-- FILTER SIDEBAR -->
+  <div class="col-lg-3 mb-4">
+    <div class="card p-3 shadow-sm sticky-top">
+      <h5 class="fw-bold mb-3">Search & Filter</h5>
+      <form id="searchForm" method="get" action="{{ url_for('index') }}">
+        <div class="mb-3">
+          <input type="text" name="query" class="form-control" placeholder="Describe your book..." value="{{ query | default('') }}" list="suggestions" required>
+          <datalist id="suggestions">
+            {% for s in suggestions | default([]) %}
+              <option value="{{ s }}"></option>
+            {% endfor %}
+          </datalist>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Category</label>
+          <select class="form-select" name="category">
+            {% for c in categories | default(['All']) %}
+              <option value="{{ c }}" {% if c == category | default('All') %}selected{% endif %}>{{ c }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Emotional Tone</label>
+          <select class="form-select" name="tone">
+            {% for t in tones | default(['All','Happy','Surprising','Angry','Suspenseful','Sad']) %}
+              <option value="{{ t }}" {% if t == tone | default('All') %}selected{% endif %}>{{ t }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Results per page</label>
+          <select class="form-select" name="per_page">
+            {% for n in [8,12,16,24,32] %}
+              <option value="{{ n }}" {% if n == per_page | default(16) %}selected{% endif %}>{{ n }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 fw-bold">🔍 Search</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- BOOK GRID -->
+  <div class="col-lg-9">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="fw-bold">Results ({{ total | default(0) }})</h5>
+      {% if pages > 1 %}
+      <nav>
+        <ul class="pagination mb-0">
+          <li class="page-item {% if page == 1 %}disabled{% endif %}">
+            <a class="page-link" href="{{ url_for('index', query=query, category=category, tone=tone, per_page=per_page, page=page-1) }}">Previous</a>
+          </li>
+          {% for p in range(1, pages+1) %}
+            <li class="page-item {% if p == page %}active{% endif %}">
+              <a class="page-link" href="{{ url_for('index', query=query, category=category, tone=tone, per_page=per_page, page=p) }}">{{ p }}</a>
+            </li>
+          {% endfor %}
+          <li class="page-item {% if page == pages %}disabled{% endif %}">
+            <a class="page-link" href="{{ url_for('index', query=query, category=category, tone=tone, per_page=per_page, page=page+1) }}">Next</a>
+          </li>
+        </ul>
+      </nav>
+      {% endif %}
+    </div>
+
+    {% if cards | default([]) %}
+    <div class="row g-4">
+      {% for card in cards %}
+      <div class="col-6 col-md-4 col-xl-3">
+        <div class="card h-100 shadow-sm book-card">
+          <img src="{{ card.image | default(url_for('static', filename='image.png')) }}" class="card-img-top" alt="Book cover">
+          <div class="card-body d-flex flex-column">
+            <h6 class="card-title">{{ card.title | default('Untitled') }}</h6>
+            <p class="card-subtitle text-muted small mb-2">{{ card.caption | default('Unknown author') }}</p>
+
+            <!-- Badges -->
+            <div class="mb-2">
+              {% if card.year %}
+                <span class="badge bg-secondary">{{ card.year }}</span>
+              {% endif %}
+              {% if card.rating %}
+                <span class="badge bg-warning text-dark">★ {{ '%.1f'|format(card.rating) }}</span>
+              {% endif %}
+            </div>
+
+            <p class="card-text small flex-grow-1">{{ card.desc | default('No description available.') }}</p>
+
+            <!-- Action Buttons -->
+            <div class="mt-2 d-flex justify-content-between">
+              <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#bookModal{{ loop.index }}">View</button>
+              <a href="#" class="btn btn-outline-success btn-sm">Wishlist</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="bookModal{{ loop.index }}" tabindex="-1" aria-labelledby="bookModalLabel{{ loop.index }}" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="bookModalLabel{{ loop.index }}">{{ card.title }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex">
+                <img src="{{ card.image | default(url_for('static', filename='image.png')) }}" class="me-3" style="width:150px; height:auto;" alt="Book cover">
+                <div>
+                  <p><strong>Author:</strong> {{ card.caption }}</p>
+                  {% if card.rating %}
+                  <p><strong>Rating:</strong> ★ {{ '%.1f'|format(card.rating) }}</p>
+                  {% endif %}
+                  <p>{{ card.desc | default('No description available.') }}</p>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <a href="#" class="btn btn-primary">Buy / More Info</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+      <div class="alert alert-info">No recommendations found. Try changing your query or filters.</div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const form = document.getElementById('searchForm');
+  form?.addEventListener('submit', () => {
+    // Optional: show loading spinner
+  });
+</script>
+{% endblock %}

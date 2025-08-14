@@ -1,0 +1,84 @@
+/* Body & overall layout */
+body {
+  background-color: #f8f9fa;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Sidebar card */
+.card {
+  border-radius: 12px;
+}
+
+.book-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+/* Card image */
+.card-img-top {
+  height: 250px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  background-color: #e9ecef;
+}
+
+/* Card text */
+.card-title {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.card-subtitle {
+  font-size: 0.8rem;
+}
+
+.card-text {
+  font-size: 0.85rem;
+  color: #495057;
+}
+
+/* Badges */
+.badge {
+  font-size: 0.75rem;
+  padding: 0.35em 0.5em;
+}
+
+/* Buttons hover effect */
+.btn-primary {
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  transform: scale(1.03);
+}
+
+/* Sidebar sticky */
+.sticky-top {
+  top: 20px;
+}
+
+/* Pagination */
+.pagination .page-item.active .page-link {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.pagination .page-link {
+  color: #0d6efd;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .book-card {
+    margin-bottom: 20px;
+  }
+}
