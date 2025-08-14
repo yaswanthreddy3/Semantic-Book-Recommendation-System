@@ -7,3 +7,4 @@ sentence-transformers
 pandas
 numpy
 langchain_chroma
+gunicorn
