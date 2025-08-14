@@ -1,100 +1,106 @@
-# Semantic-Book-Recommendation-System
-AI-powered Semantic Book Recommendation System that suggests books based on user queries using semantic similarity, emotion, and category filters. Built with Python, Flask, LangChain, HuggingFace embeddings, and Chroma, it provides personalized, relevant, and interactive book recommendations.
+# Semantic Book Recommendation System
 
 ## Overview
-This repository contains a Flask web application that provides AI-powered semantic book recommendations. The system allows users to search for books based on keywords, emotions, and categories, leveraging embeddings and vector similarity for personalized suggestions.
 
-## Table of Contents
-1. [Introduction](#introduction)
-2. [Setup and Dependencies](#setup-and-dependencies)
-3. [Data Overview](#data-overview)
-4. [Embeddings and Chroma DB](#embeddings-and-chroma-db)
-5. [Recommendation Engine](#recommendation-engine)
-6. [How to Use](#how-to-use)
-7. [Deployment](#deployment)
+This repository hosts an AI-powered **Semantic Book Recommendation Web App** built with **Flask**, **LangChain**, and **HuggingFace Embeddings**. Users can search for books using keywords, emotions, or categories, and receive personalized recommendations based on semantic similarity, tone, and popularity.
 
-## Introduction
-The goal of this project is to suggest relevant books using semantic similarity of descriptions and additional filters:
-- Handles user queries intelligently
-- Filters by book category and emotional tone (Happy, Sad, Angry, Surprising, Suspenseful)
-- Prioritizes exact title matches for better user experience
-- Provides book details such as title, authors, rating, description, and thumbnail
+The system intelligently matches books semantically, not just by keywords, and prioritizes exact title matches to enhance user experience. It also supports filtering by emotional tone and category, providing a modern, interactive book discovery platform.
 
-## Setup and Dependencies
-Ensure the following Python libraries are installed:
-- `pandas`
-- `numpy`
-- `flask`
-- `langchain`
-- `langchain-chroma`
-- `huggingface-hub`
-- `sentence-transformers`
+---
 
-Install dependencies using:
+## Key Features
+
+* **Semantic Search:** Finds books similar in meaning, not just keywords.
+* **Emotion-Aware Recommendations:** Filter books by emotional tone (Happy, Sad, Angry, Surprising, Suspenseful).
+* **Category Filter:** Browse books by genres or categories.
+* **Title-Priority Matching:** Ensures exact title matches appear first.
+* **Book Details:** Displays title, authors, ratings, year, description, and thumbnails.
+* **Dynamic Pagination:** Efficiently handles large search results for smooth user experience.
+
+---
+
+## Tech Stack
+
+* **Backend:** Python, Flask
+* **AI/ML:** HuggingFace Sentence Transformers, LangChain, Chroma Vector Database
+* **Frontend:** HTML, CSS, JavaScript (dynamic search & pagination)
+* **Data:** CSV book dataset with emotion scores and descriptions
+
+---
+
+## Installation & Setup
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/your-username/semantic-book-recommendation.git
+```
+
+2. Navigate to the project folder:
+
+```bash
+cd semantic-book-recommendation
+```
+
+3. Install dependencies:
+
 ```bash
 pip install -r requirements.txt
+```
 
-Data Overview
+4. Place the CSV (`books_with_emotion_scores.csv`) and tagged descriptions (`tagged_description.txt`) in the root directory.
+5. Run the application:
 
-books_with_emotion_scores.csv – Main dataset with book metadata, emotion scores, and ratings.
-
-tagged_description.txt – Text file containing book descriptions for semantic indexing.
-
-book_db/ – Local Chroma vector database directory (generated automatically).
-
-Embeddings and Chroma DB
-
-Uses HuggingFaceEmbeddings (MiniLM model) to convert book descriptions into vector embeddings.
-
-Stores embeddings in a Chroma vector database for fast semantic search.
-
-Automatically builds or loads the database on app startup.
-
-Recommendation Engine
-
-Semantic search on book descriptions using vector similarity.
-
-Exact title matching is prioritized for better results.
-
-Filters by category and tone.
-
-Returns top recommendations sorted by relevance or rating.
-
-Supports paginated display in the frontend.
-
-How to Use
-
-Clone the repository:
-
-git clone https://github.com/your-username/semantic-book-recommendation.git
-
-
-Navigate to the project directory:
-
-cd semantic-book-recommendation
-
-
-Place books_with_emotion_scores.csv and tagged_description.txt in the project root.
-
-Run the Flask app:
-
+```bash
 python app.py
+```
 
+6. Open your browser at `http://localhost:5001`.
 
-Open a browser at http://localhost:5001 and enter a book name, keyword, or query.
+---
 
-Deployment
+## How It Works
 
-Can be deployed on Render, Heroku, or any server supporting Python & Flask.
+1. **Data Loading:** Reads CSV book data and tagged descriptions.
+2. **Embeddings:** Converts book descriptions into vector embeddings using HuggingFace.
+3. **Chroma DB:** Stores vectors for fast semantic similarity search.
+4. **Recommendation Engine:** Searches by query, filters by category/tone, prioritizes titles, sorts by relevance or rating.
+5. **Frontend Display:** Shows results with pagination, book thumbnails, descriptions, ratings, and publication year.
 
-Ensure CSV and Chroma database folder are included for correct functionality.
+---
 
-License
+## Deployment
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+* Deployable on **Render**, **Heroku**, or any Python-supported cloud server.
+* Requires CSV and Chroma DB folder to be included.
+* Easy to integrate with dynamic frontends for an interactive experience.
 
+---
 
-I can also **prepare a ready-to-upload `.md` file** for you with this content so you just copy and upload to GitHub.  
+## Skills Demonstrated
 
-Do you want me to do that?
+* Full-stack development (Flask + dynamic frontend)
+* Semantic search & embeddings
+* Vector databases (Chroma)
+* Data preprocessing & handling
+* AI-powered recommendation systems
+* Pagination, filters, and UI/UX integration
 
+---
+
+## Live Demo & Source
+
+* **Web App:** \[Insert your deployed link here]
+* **GitHub Repository:** \[Insert your repo link here]
+
+---
+
+## License
+
+MIT License. See `LICENSE` for details.
+
+---
+
+## Notes
+
+This project demonstrates practical applications of AI and full-stack development in building recommendation systems. The code is modular, making it easy to extend with new datasets, embeddings, or additional filtering options.
