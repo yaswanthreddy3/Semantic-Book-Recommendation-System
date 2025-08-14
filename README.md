@@ -90,8 +90,8 @@ python app.py
 
 ## Live Demo & Source
 
-* **Web App:** \[Insert your deployed link here]
-* **GitHub Repository:** \[Insert your repo link here]
+* **Web App:** https://semantic-book-recommendation-system.onrender.com
+* **GitHub Repository:** https://github.com/yaswanthreddy3/Semantic-Book-Recommendation-System
 
 ---
 
