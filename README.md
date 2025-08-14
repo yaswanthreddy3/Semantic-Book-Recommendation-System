@@ -33,7 +33,7 @@ The system intelligently matches books semantically, not just by keywords, and p
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/semantic-book-recommendation.git
+git clone https://github.com/yaswanthreddy3/Semantic-Book-Recommendation-System.git
 ```
 
 2. Navigate to the project folder:
