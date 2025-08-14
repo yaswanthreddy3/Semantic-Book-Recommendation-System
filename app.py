@@ -93,8 +93,8 @@ def retrieve_semantic_recommendation(
     query: str,
     category: str = 'All',
     tone: str = 'All',
-    initial_top_k: int = 100,
-    sort_top_k: int = 64
+    initial_top_k: int = 50,
+    sort_top_k: int = 32
 ) -> pd.DataFrame:
     if not query or not query.strip():
         return pd.DataFrame(columns=books.columns)
