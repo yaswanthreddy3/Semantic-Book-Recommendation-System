@@ -20,7 +20,7 @@ TAGGED_DESC = "tagged_description.txt"        # place your tagged descriptions h
 PERSIST_DIR = "book_db"                       # local chroma DB folder
 EMBED_MODEL = "sentence-transformers/all-MiniLM-L6-v2"  # embedding model
 HOST = "0.0.0.0"
-PORT = 5001
+PORT = 7860
 DEBUG = True
 
 # ---------- LOAD BOOKS ----------
